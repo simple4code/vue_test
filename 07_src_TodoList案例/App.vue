@@ -26,7 +26,11 @@ export default {
   components: { TodoHeader, TodoFooter, TodoList },
   data() {
     return {
-      todos: JSON.parse(localStorage.getItem('todos')) || []
+      todos: [
+        {id:'001', title:'吃饭', done:true},
+        {id:'002', title:'运动', done:true},
+        {id:'003', title:'学习', done:true}
+      ]
     }
   },
   methods: {
@@ -51,14 +55,6 @@ export default {
     // 勾选或者不勾选所有事项
     checkAllTodo(isCheck) {
       this.todos.forEach((todo) => todo.done=isCheck)
-    }
-  },
-  watch: {
-    todos: {
-      deep: true,
-      handler(value) {
-        localStorage.setItem('todos', JSON.stringify(value))
-      }
     }
   }
 }

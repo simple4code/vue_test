@@ -18,8 +18,6 @@ import TodoHeader from './components/TodoHeader.vue'
 import TodoFooter from './components/TodoFooter.vue'
 import TodoList from './components/TodoList.vue'
 
-import PubSub from 'pubsub-js'
-
 export default {
   name: 'App',
   components: { TodoHeader, TodoFooter, TodoList },
@@ -50,12 +48,6 @@ export default {
     // 勾选或者不勾选所有事项
     checkAllTodo(isCheck) {
       this.todos.forEach((todo) => todo.done=isCheck)
-    },
-    // 更新某个todo标题
-    updateTodo(id, title) {
-      this.todos.forEach((todo) => {
-        if(todo.id === id) todo.title = title
-      })
     }
   },
   watch: {
@@ -67,20 +59,12 @@ export default {
     }
   },
   mounted() {
-    // this.$bus.$on('changeTodo', this.changeTodo)
-    // this.$bus.$on('deleteTodo', this.deleteTodo)
-    this.$bus.$on('updateTodo', this.updateTodo)
-    // 订阅消息并调用对应回调函数
-    this.changePid = PubSub.subscribe('changeTodo', (_, data) => this.changeTodo(data))
-    this.deletePid = PubSub.subscribe('deleteTodo', (_, data) => this.deleteTodo(data))
+    this.$bus.$on('changeTodo', this.changeTodo)
+    this.$bus.$on('deleteTodo', this.deleteTodo)
   },
   beforeCreate() {
-    // this.$bus.$off('changeTodo')
-    // this.$bus.$off('deleteTodo')
-    this.$bus.$off('updateTodo')
-    // 取消订阅消息
-    PubSub.unsubscribe(this.changePid)
-    PubSub.unsubscribe(this.deletePid)
+    this.$bus.$off('changeTodo')
+    this.$bus.$off('deleteTodo')
   }
 }
 </script>
@@ -113,19 +97,6 @@ export default {
   .btn-danger:hover {
     color: #fff;
     background-color:#bd362f;
-  }
-
-  .btn-edit {
-    color: #fff;
-    background-color: skyblue;
-    border: 1px solid rgb(135, 157, 235);
-    margin-right: 5px;
-  }
-
-  .btn-edit:hover {
-    color: #fff;
-    background-color:rgb(135, 157, 235);
-    margin-right: 5px;
   }
 
   .btn:focus {

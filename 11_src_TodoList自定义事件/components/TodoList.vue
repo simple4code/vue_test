@@ -1,11 +1,11 @@
 <template>
   <ul class="todo-main">
-    <transition-group name="todo" appear>
-      <TodoItem 
-        v-for="todo in todos" 
-        :key="todo.id" 
-        :todo="todo" />
-    </transition-group>
+    <TodoItem 
+      v-for="todo in todos" 
+      :key="todo.id" 
+      :todo="todo" 
+      :changeTodo="changeTodo"
+      :deleteTodo="deleteTodo"/>
   </ul>
 </template>
 
@@ -19,7 +19,7 @@ export default {
     return {
     }
   },
-  props: ['todos']
+  props: ['todos', 'changeTodo', 'deleteTodo']
 }
 </script>
 
@@ -39,22 +39,5 @@ export default {
     border-radius: 2px;
     padding-left: 5px;
     margin-top: 10px;
-  }
-
-  .todo-enter-active {
-    animation: anime-test 0.5s linear;
-  }
-
-  .todo-leave-active {
-    animation: anime-test 0.5s linear reverse;
-  }
-
-  @keyframes anime-test {
-    from {
-      transform: translateX(-100%);
-    }
-    to {
-      transform: translateX(0px);
-    }
   }
 </style>

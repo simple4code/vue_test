@@ -1,5 +1,5 @@
 <template>
-  <li>
+  <li >
     <label>
       <input 
         type="checkbox" 

@@ -9,8 +9,4 @@ Vue.config.productionTip = false
 // 创建vm
 new Vue({
   render: h => h(App),
-  // 安装全局事件总线
-  beforeCreate() {
-    Vue.prototype.$bus = this
-  }
 }).$mount('#app')

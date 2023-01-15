@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>当前求和为：{{ sum }}</h1>
-    <h1>当前求和放大10倍后为: {{ bigSum }}</h1>
+    <h1>当前求和放大10倍后为：{{ bigSum }}</h1>
     <h1>我在{{ school }}，学习{{ subject }}</h1>
     <h3 style="color:red;">Person组件的总人数是：{{ personList.length }}</h3>
     <select v-model.number="addNum">
@@ -27,21 +27,40 @@
       }
     },
     computed: {
+      // 借助mapState生成计算属性，从state中读取数据（对象写法）
+      // ...mapState({he:'sum', xuexiao:'school', xueke:'subject'}),
+
       // 借助mapState生成计算属性，从state中读取数据（数组写法）
-      ...mapState('countAbout', ['sum', 'school', 'subject']),
-      ...mapState('personAbout', ['personList']),
+      ...mapState(['sum', 'school', 'subject', 'personList']),
 
       /* ************************************************************** */
+      // 借助mapGetters生成计算属性，从getters中读取数据（对象写法）
+      // ...mapGetters({bigSum: 'bigSum'}),
+
       // 借助mapGetters生成计算属性，从getters中读取数据（数组写法）
-      ...mapGetters('countAbout', ['bigSum']),
+      ...mapGetters(['bigSum']),
     },
     methods: {
+      /* add() {
+        this.$store.commit('ADD', this.addNum)
+      },
+      sub() {
+        this.$store.commit('SUB', this.addNum)
+      }, */
+
       // 借助mapMutations生成对应的方法，方法会调用commit去联系mutations（对象写法）
-      ...mapMutations('countAbout', {add:'ADD', sub:'SUB'}),
+      ...mapMutations({add:'ADD', sub:'SUB'}),
 
       /* ************************************************************** */
+      /* addWhenOdd() {
+        this.$store.dispatch('addOdd', this.addNum)
+      },
+      addWait() {
+        this.$store.dispatch('addWait', this.addNum)
+      } */
+
       // 借助mapActions生成对应的方法，方法会调用dispatch去联系actions（对象写法）
-      ...mapActions('countAbout', {addWhenOdd:'addOdd', addWait:'addWait'}),
+      ...mapActions({addWhenOdd:'addOdd', addWait:'addWait'}),
     },
     mounted() {
     }
